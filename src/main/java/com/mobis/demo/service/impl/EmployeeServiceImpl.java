@@ -37,10 +37,13 @@ public class EmployeeServiceImpl implements EmployeeService{
 
 	@Override
 	public Employee getEmployeeById(Long empId) {
-		java.util.Optional<Employee> empid = empRepository.findById(empId);
+		java.util.Optional<Employee> empid = this.empRepository.findById(empId);
+		
 		if(empid.isPresent()) {
+			
 			logger.info("Employee id" + empid.get());
 			return empid.get();
+			
 			
 		}else {
 			throw new ResourceNotFoundException("Record not found with id : " + empid);
@@ -54,10 +57,17 @@ public class EmployeeServiceImpl implements EmployeeService{
 
 
 	@Override
-	public void deleteEmployee(Long empId) {
-		empRepository.deleteById(empId);
-		logger.info("Employee deleted.." + empId);
+	public Employee deleteEmployee(Long empId) {
+		java.util.Optional<Employee> empid = empRepository.findById(empId);
 		
+		if(empid.isPresent()) {
+		empRepository.deleteById(empId);
+		
+		logger.info("Employee deleted.." + empId);
+		return empid.get();
+		}else {
+			throw new ResourceNotFoundException("Record not found with id  : " + empid);
+		}
 	}
 
 
@@ -78,6 +88,8 @@ public class EmployeeServiceImpl implements EmployeeService{
 		    logger.info("Employee updated successfully" + employee.getEmailId());
 		    return empUpdate;
 	}
-		return employee;
+		else {
+            throw new ResourceNotFoundException("Record not found with id : " + employee.getId());
+        }
 	}
 }

@@ -1,6 +1,6 @@
 package com.mobis.demo.globalexception;
 
-import java.util.NoSuchElementException;
+
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +17,7 @@ public class EmployeeExceptionController {
 		
 		public ResponseEntity<String> resourseNotFound(ResourceNotFoundException resourceNotFoundException){
 			
-			return new ResponseEntity<String>("Id not found", HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<String>("Record not found with id , Please provide vaild employee Id", HttpStatus.BAD_REQUEST);
 		
 		}
 		
